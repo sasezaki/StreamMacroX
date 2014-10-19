@@ -1,0 +1,6 @@
+{
+  	"name" : "sasezaki/StreamMacroX",
+  	"autoload": {
+        "psr-0": { "StreamMacroX\\": "src/" }
+	}
+}
