@@ -48,14 +48,11 @@ class Compile
     /**
      * Build
      */
-    static public function build()
+    static public function build($protocol = null, $path = null)
     {
-		if (file_exists(func_get_arg(1))) { 
-            if (2<func_num_args()) {
-                extract(func_get_arg(2));
-            }
-			$path = func_get_arg(0) . '://' . func_get_arg(1);
-            return include "php://filter/read=streammacrox.unescape-phptag/resource=$path";
+		if (file_exists($path)) { 
+			$path = $protocol . '://' . $path;
+            return "php://filter/read=streammacrox.unescape-phptag/resource=$path";
 		} else {
 			return false;
 		}
