@@ -3,13 +3,8 @@ namespace StreamMacroX;
 
 class Macro
 {
-    /**
-     * Stream stats.
-     *
-     * @var array
-     */
-    protected $_stat;
 
+    protected static $protocol;
         
     static public function register($protocol)
     {
@@ -20,23 +15,20 @@ class Macro
             stream_filter_register("streammacrox.unescape-phptag", "StreamMacroX\\PHPTagStreamFilter");            
         }
 
+        self::$protocol = $protocol;
+
         return true;
     }
 
     public static function render($path, $options = [])
     {
-        $m = array();
-        preg_match("/^([^\:]+)\:\/\/(.*)/", $path, $m);
-        $protocol  = $m[1];
-        $path  = $m[2];
-        
         $callback = $options;
-        if (is_callable($callback)) {
-            $opts = call_user_func($callback, $path);
+        $opts = (is_callable($options)) ? call_user_func($callback, $path) : $options;
+        if (is_array($opts)) {
             extract($opts);
-            include Compile::build($protocol.'.compile', $path, $opts);
+            include Compile::build(self::$protocol.'.compile', $path, $opts);
         } else {
-            include Compile::build($protocol.'.compile', $path);
+            include Compile::build(self::$protocol.'.compile', $path);
         }
     }
 }

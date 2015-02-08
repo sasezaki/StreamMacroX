@@ -17,4 +17,4 @@ function sleeprange() {
 StreamMacroX\Macro::register('macro');
 
 //render example
-include "macro://example-template.php";
+StreamMacroX\Macro::render("example-template.php");
