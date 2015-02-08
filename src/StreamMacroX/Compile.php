@@ -51,7 +51,9 @@ class Compile
     static public function build()
     {
 		if (file_exists(func_get_arg(1))) { 
-			if (2<func_num_args()) { extract(func_get_arg(2)); }
+            if (2<func_num_args()) {
+                extract(func_get_arg(2));
+            }
 			$path = func_get_arg(0) . '://' . func_get_arg(1);
             return include "php://filter/read=streammacrox.unescape-phptag/resource=$path";
 		} else {

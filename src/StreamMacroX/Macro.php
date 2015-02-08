@@ -74,7 +74,7 @@ class Macro
         $this->_path = $path;
         
         $callback = isset(self::$_callbackes[$protocol]) ? self::$_callbackes[$protocol] : null;
-        if (is_array($callback) || is_string($callback)) {
+        if (is_callable($callback)) {
             $opts = call_user_func($callback, $path);
             $this->_data = Compile::build($protocol.'.compile', $path, $opts);
         } else {
