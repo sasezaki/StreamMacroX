@@ -3,6 +3,7 @@ namespace StreamMacroX;
 
 class Macro
 {
+    public static $content_path; // for layout
 
     protected static $protocol;
         

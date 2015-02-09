@@ -16,6 +16,7 @@ class Filter
 		$inct = new self($buff);
 
 		$inct->_filter_include();
+		$inct->_filter_content(); //
 		$inct->_filter_define();
 		$inct->_filter_constant();
 		$inct->_filter_if();
@@ -24,6 +25,14 @@ class Filter
 		//var_dump($inct->_buff);
 
 	   return $inct->_buff;
+	}
+
+	private function _filter_content()
+	{
+        $this->_buff = preg_replace_callback("/^\s*#content/im", function() {
+            $path = Macro::$content_path;
+            return PHPTagFilter::escape(file_get_contents($path));
+        }, $this->_buff);
 	}
 
 	private function _filter_include()
